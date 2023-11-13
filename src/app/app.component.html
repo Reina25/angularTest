@@ -1,0 +1,70 @@
+<div class="row">
+    <div class="col-6">
+        <div class="container-fluid ">
+            <h2>Test Form</h2>
+            <div class="alert alert-danger" *ngIf="errorMsg">
+                {{errorMsg}}
+               </div>
+            <h4 class="text-success" *ngIf="submitted">Form submitted successfully</h4>
+           
+            
+            <form #userForm="ngForm" *ngIf="!submitted" (ngSubmit)="onSubmit(userForm.value)" novalidate>
+                <!-- {{userForm.value | json}} -->
+                <div class="form-group">
+                    <label>Name</label>
+                    <input type="text" class="form-control" name="name" #name="ngModel" [class.is-invalid]="name.invalid && name.touched" ngModel required>
+                    <small class="text-danger" [class.d-none]="name.valid || name.untouched">Name is required</small>
+        
+                </div>
+        
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" class="form-control " name="email" pattern="^([\w\-\.]+)@((\[([0-9]{1,3}\.){3}[0-9]{1,3}\])|(([\w\-]+\.)+)([a-zA-Z]{2,4}))$" #email="ngModel" [class.is-invalid]="email.invalid && email.touched" ngModel required>
+                    <div *ngIf="email.errors && (email.invalid && email.touched)">
+                        <small class="text-danger" *ngIf="email.errors['required'] ">Email is required</small>
+                        <small class="text-danger" *ngIf="email.errors['pattern']">Please enter a valid email</small>
+                    </div>
+                </div>
+        
+                <button [disabled]="userForm.form.invalid" type="submit" class="btn btn-primary ">Submit</button>
+            </form>
+            
+        </div>
+    </div>
+    
+    <div class="col-6">
+        
+    <div class="container-fluid ">
+        <h3>All Data</h3>
+        <table id="data" class="table-bordered ">
+            <tr>
+                <th>#</th>
+                <!-- <th>Name</th>
+                <th>Email</th> -->
+                <th>name</th>
+                <th>cca2</th>
+                <th>Independent</th>
+                <th></th>
+            </tr>
+            <tr *ngFor="let data of alldata; let i = index">
+                <td>{{i+1}}</td>
+                <!-- <td>{{data.name}}</td>
+                <td>{{data.email}}</td> -->
+                <td>
+                    {{data.name.common}}
+                <!--<div *ngFor="let subdata of data.names; let j = index">
+
+                    <div>{{subdata.common}}</div>
+                </div>-->    
+                
+                </td>
+
+                <td>{{data.cca2}}</td>
+                <td>{{data.independent}}</td>
+                <td></td>
+            </tr>
+        </table>
+    
+    </div>
+    </div>
+</div>
